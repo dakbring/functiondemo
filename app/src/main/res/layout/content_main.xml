@@ -7,13 +7,11 @@
   app:layout_behavior="@string/appbar_scrolling_view_behavior"
   android:padding="@dimen/activity_vertical_margin"
   tools:context="com.demo.cnt.myapplication.MainActivity"
-  tools:showIn="@layout/activity_main">
+  tools:showIn="@layout/activity_main"
+  android:background="@android:color/darker_gray">
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/list_activity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/black">
-
-  </android.support.v7.widget.RecyclerView>
+    android:layout_height="match_parent"/>
 </RelativeLayout>

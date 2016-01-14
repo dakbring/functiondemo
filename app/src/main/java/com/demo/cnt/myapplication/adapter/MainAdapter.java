@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
   private Class[] mDataSet;
+  private ListFunctionListener mListFunctionListener;
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -22,8 +23,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
   }
 
-  public MainAdapter(Class[] dataSet) {
+  public MainAdapter(Class[] dataSet, ListFunctionListener listFunctionListener) {
     mDataSet = dataSet;
+    mListFunctionListener = listFunctionListener;
   }
 
   @Override
@@ -37,11 +39,22 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
   @Override
   public void onBindViewHolder(ViewHolder holder, int position) {
-    holder.vText.setText(mDataSet[position].toString());
+    final Class selected = mDataSet[position];
+    holder.vText.setText(selected.getSimpleName());
+    holder.vText.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        mListFunctionListener.onItemSelected(selected);
+      }
+    });
   }
 
   @Override
   public int getItemCount() {
     return mDataSet.length;
+  }
+
+  public interface ListFunctionListener {
+    void onItemSelected(Class position);
   }
 }

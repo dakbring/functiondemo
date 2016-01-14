@@ -5,6 +5,7 @@ import com.demo.cnt.myapplication.base.BaseActivity;
 import com.demo.cnt.myapplication.image.HandleImageActivity;
 import com.demo.cnt.myapplication.map.GoogleMapActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,7 @@ import android.support.v7.widget.Toolbar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainAdapter.ListFunctionListener{
 
     @Bind(R.id.list_activity)
     RecyclerView vListView;
@@ -49,9 +50,19 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initListFunction(){
-        mAdapter = new MainAdapter(mListDemo);
+        mAdapter = new MainAdapter(mListDemo, this);
         mLayoutManager = new LinearLayoutManager(this);
         vListView.setLayoutManager(mLayoutManager);
         vListView.setAdapter(mAdapter);
+    }
+
+    private void callSelectedItem(Class selected){
+        Intent intent = new Intent(this, selected);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemSelected(Class position) {
+        callSelectedItem(position);
     }
 }
